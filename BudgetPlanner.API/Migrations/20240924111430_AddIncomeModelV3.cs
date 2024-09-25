@@ -7,10 +7,17 @@
 namespace BudgetPlanner.API.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class AddIncomeModelV3 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "Chores");
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
                 name: "Chores",
@@ -18,9 +25,9 @@ namespace BudgetPlanner.API.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDone = table.Column<bool>(type: "bit", nullable: false)
+                    IsDone = table.Column<bool>(type: "bit", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -32,17 +39,11 @@ namespace BudgetPlanner.API.Migrations
                 columns: new[] { "Id", "Description", "IsDone", "Title" },
                 values: new object[,]
                 {
-                    { 1, "Wash", false, "Do the dishes" },
+                    { 1, "Wash", true, "Do the dishes" },
                     { 2, "Gently", false, "Pet the dog" },
-                    { 3, "Cosy", false, "Sleep in ur bed" }
+                    { 3, "Cosy", false, "Sleep in ur bed" },
+                    { 4, "Swag", true, "Drip" }
                 });
-        }
-
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropTable(
-                name: "Chores");
         }
     }
 }

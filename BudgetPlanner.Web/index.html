@@ -1,13 +1,91 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BudgetPlanner</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Planner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ececec;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="number"], input[type="datetime-local"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .total {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Budget Planner</h1>
+        <input type="number" id="amount" placeholder="Ange belopp" required />
+        <input type="datetime-local" id="createdAt" required />
+        <button onclick="addIncome()">Lägg till inkomst</button>
+        <div class="total" id="totalIncome">Totala inkomster: 0</div>
+    </div>
+
+    <script>
+        async function addIncome() {
+            const amount = document.getElementById('amount').value;
+            const createdAt = document.getElementById('createdAt').value;
+
+            const response = await fetch('https://localhost:5001/api/income', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    amount: parseFloat(amount),
+                    createdAt: createdAt
+                })
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                document.getElementById('totalIncome').innerText = 'Totala inkomster: ' + result.totalIncome;
+                document.getElementById('amount').value = '';
+                document.getElementById('createdAt').value = '';
+            } else {
+                alert('Något gick fel: ' + response.statusText);
+            }
+        }
+    </script>
+</body>
 </html>
