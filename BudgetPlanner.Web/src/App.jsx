@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import IncomeForm from './IncomeComponent'; // Kolla att sökvägen stämmer
+import IncomeForm from './IncomeComponent'; 
 
 function App() {
     const [incomes, setIncomes] = useState([]);
@@ -21,7 +21,7 @@ function App() {
         fetchIncomes();
     }, []);
 
-    // Beräkna total inkomst
+   
     const totalIncome = incomes.reduce((acc, income) => acc + income.amount, 0);
 
     return (
