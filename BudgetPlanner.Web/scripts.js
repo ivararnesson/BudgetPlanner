@@ -1,6 +1,5 @@
 document.getElementById('incomeForm').addEventListener('submit', async function (event) {
-    event.preventDefault(); // Förhindra standard formulärbeteende
-
+    event.preventDefault(); 
     const amount = parseFloat(document.getElementById('amount').value);
     const createdAt = document.getElementById('date').value;
 
@@ -12,15 +11,15 @@ document.getElementById('incomeForm').addEventListener('submit', async function 
             },
             body: JSON.stringify({
                 amount: amount,
-                createdAt: createdAt // Se till att datumet är i korrekt format
+                createdAt: createdAt 
             })
         });
 
         if (response.ok) {
             const data = await response.json();
-            // Uppdatera totalinkomsten
+           
             document.getElementById('totalIncome').innerText = `Total inkomst: ${data.totalIncome}`;
-            // Rensa formuläret
+         
             document.getElementById('incomeForm').reset();
         } else {
             console.error('Error:', response.statusText);
@@ -44,8 +43,8 @@ async function updateIncome(id, amount, createdAt) {
             throw new Error('Error updating income: ' + response.statusText);
         }
 
-        const data = await response.json(); // Hämta den uppdaterade totalinkomsten
-        document.getElementById('totalIncome').innerText = `Total inkomst: ${data.totalIncome}`; // Uppdatera totalinkomsten
+        const data = await response.json(); 
+        document.getElementById('totalIncome').innerText = `Total inkomst: ${data.totalIncome}`;
         console.log('Inkomst uppdaterad framgångsrikt!');
     } catch (error) {
         console.error('Fel vid uppdatering av inkomst:', error);

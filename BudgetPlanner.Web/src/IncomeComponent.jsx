@@ -22,7 +22,7 @@ function IncomeForm({ setIncomes }) {
             }
 
             const data = await response.json();
-            setIncomes((prevIncomes) => [...prevIncomes, data.income]); // Lägg till den nya inkomsten
+            setIncomes((prevIncomes) => [...prevIncomes, data.income]); 
             setAmount('');
             setCreatedAt('');
         } catch (error) {
