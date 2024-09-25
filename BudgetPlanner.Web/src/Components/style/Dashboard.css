@@ -10,18 +10,19 @@
     background-color: #ffffff;
     border-radius: 12px;
     height: 30rem;
-    width: 90%;
+    width: 85%;
     margin-left: auto;
     margin-right: auto;
-    display: flex; /* Allows for flexible layout */
-    justify-content: center; /* Center the chart */
-    align-items: center; /* Center the chart vertically */
-    padding: 20px; /* Optional padding */
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    padding: 20px; 
+    border: 1px solid #aaff64;
   }
   
-  .chart {
-    background-color: #ffffff; /* Make chart fill the container */
-  }
+.chart {
+  background-color: #ffffff;
+}
 
 .main-text {
   background-color: #ffffff;
@@ -34,7 +35,7 @@
 .categories-container {
     display: flex;
     align-items: center;
-    overflow-x: auto; /* Enable horizontal scrolling */
+    overflow-x: auto; 
     gap: 5rem;
     margin-top: 3rem;
 }
@@ -43,10 +44,11 @@
     border-radius: 12px;
     padding: 15px;
     margin-top: 3%;
-    width: 90%;
+    width: 85%;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 5rem;
+  
 }
 
 .categories-card-container {
@@ -56,6 +58,7 @@
     border-radius: 12px;
     height: 12rem;
     min-width: 10rem;
+    border: 1px solid #aaff64;
 }
 
 .categories-card-categorie {
@@ -64,14 +67,22 @@
     font-weight: 500;
     color: #333;
     margin-bottom: 10px;
-    margin-left: 1rem;
-    margin-top: 4rem;
+    margin-left: 1.5rem;
+  margin-top: 1rem;
 }
 
 .categories-card-amount {
     background-color: #ffffff;
     font-size: 20px;
-    margin-left: 1rem;
+    margin-left: 1.5rem;
     font-weight: 700;
+}
+
+.categories-card-icon {
+  background-color: #ffffff;
+  height: 3.5rem;
+  width: 3.5rem;
+  margin-top: 2rem;
+  margin-left: 1rem;
 }
   
