@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import TodoList from './TodoList'
+import Dashboard from './Components/Daboard';
 
 function App() {
   
   return (
-      <TodoList />
+      <Dashboard />
   )
 }
 
