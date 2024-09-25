@@ -9,6 +9,7 @@ function Dashboard() {
       <div>
         <MainCard />
       </div>
+      
       <div>
         <CategoriesCard />
       </div>

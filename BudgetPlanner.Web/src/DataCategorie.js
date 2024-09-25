@@ -25,9 +25,15 @@ const foodData = [
     },
 
     {
+        category: "Hem",
+        price: 4000,
+    },
+
+    {
         category: "Lån",
         price: 4000,
     },
+    
   ];
   
   export default foodData;

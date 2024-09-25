@@ -1,5 +1,5 @@
 import React from "react";
-import foodData from "../data"; // Import your data file
+import foodData from "../DataCategorie"; // Import your data file
 
 function FoodCategorie() {
   return (
