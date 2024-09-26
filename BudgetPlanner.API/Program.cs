@@ -1,6 +1,6 @@
-using BudgetPlanner.API;
 using Microsoft.EntityFrameworkCore;
 using System;
+using BudgetPlanner.API;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,24 +14,60 @@ builder.Services.AddDbContext<PersonsContext>(o =>
 );
 
 builder.Services.AddCors(options =>
-    options.AddPolicy("AllowAll", p =>
-    p.AllowAnyOrigin()
-    .AllowAnyMethod()
-    .AllowAnyHeader())
-);
+{
+    options.AddPolicy("AllowAll",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        });
+});
+
+builder.Services.AddDbContext<ChoreContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
-
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
 app.UseCors("AllowAll");
-app.UseHttpsRedirection();
 
+app.MapPost("/api/income", async (Income income, ChoreContext context) =>
+{
+    if (income == null || income.Amount <= 0)
+    {
+        return Results.BadRequest("Invalid income data.");
+    }
+
+    context.Incomes.Add(income);
+    await context.SaveChangesAsync();
+
+    var totalIncome = await context.Incomes.SumAsync(i => i.Amount);
+
+    return Results.Created($"/api/income/{income.Id}", new { income, totalIncome });
+});
+
+app.MapPut("/api/income/{id}", async (int id, Income income, ChoreContext context) =>
+{
+    var existingIncome = await context.Incomes.FindAsync(id);
+    if (existingIncome == null)
+    {
+        return Results.NotFound();
+    }
+
+    existingIncome.Amount = income.Amount;
+    await context.SaveChangesAsync();
+
+    var totalIncome = await context.Incomes.SumAsync(i => i.Amount);
+
+    return Results.Ok(new { income = existingIncome, totalIncome });
+});
+
+app.MapGet("/api/income/total", async (ChoreContext context) =>
+{
+    var totalIncome = await context.Incomes.SumAsync(i => i.Amount);
+
+    return Results.Ok(new { totalIncome });
+});
 app.MapGet("/api/person", GetAllPerson);
 
 app.MapPut("/api/goal/{id}", async (int id, Persons updatedPerson, PersonsContext db) =>
@@ -89,4 +125,3 @@ async Task<List<Persons>> GetAllPerson(PersonsContext db)
 }
 
 app.Run();
-
