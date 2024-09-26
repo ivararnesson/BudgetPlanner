@@ -6,22 +6,22 @@
 
 /*MainCard*/
 .main-card {
-    margin-top: 20%;
+    margin-top: 5rem;
     background-color: #ffffff;
     border-radius: 12px;
-    height: 30rem;
-    width: 85%;
-    margin-left: auto;
-    margin-right: auto;
+    height: 35rem;
+    width: 70%;
+    margin-left: 5rem;
     display: flex; 
     justify-content: center; 
     align-items: center; 
-    padding: 20px; 
+    padding: 25px; 
     border: 1px solid #aaff64;
   }
   
 .chart {
   background-color: #ffffff;
+  margin-top: 0;
 }
 
 .main-text {
@@ -29,6 +29,8 @@
   font-size: 34px;
   font-weight: 500;
   color: #333;
+  
+  margin-bottom: 0px;
 }
 
 /*CategoriesCard*/
@@ -44,7 +46,7 @@
     border-radius: 12px;
     padding: 15px;
     margin-top: 3%;
-    width: 85%;
+    width: 80%;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 5rem;

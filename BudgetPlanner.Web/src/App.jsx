@@ -3,7 +3,7 @@ import IncomeComponent from './components/IncomeComponent';
 import Dashboard from './Components/Daboard';
 import Sidebar from './components/Sidebar'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import CustomNavbar from './components/CustomNavbar'
+import CustomNavbar from './Components/CustomNavbar'
 
 function App() {
     const [incomes, setIncomes] = useState([]);
@@ -30,7 +30,7 @@ function App() {
     return (
         <div>
             <h1>Budget Planner</h1>
-            
+
             <IncomeComponent setIncomes={setIncomes} />
               
              <CustomNavbar />
