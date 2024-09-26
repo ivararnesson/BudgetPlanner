@@ -1,0 +1,88 @@
+* {
+  margin: 0;
+  padding: 0;
+  background-color: #ececec;
+}
+
+/*MainCard*/
+.main-card {
+    margin-top: 20%;
+    background-color: #ffffff;
+    border-radius: 12px;
+    height: 30rem;
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    padding: 20px; 
+    border: 1px solid #aaff64;
+  }
+  
+.chart {
+  background-color: #ffffff;
+}
+
+.main-text {
+  background-color: #ffffff;
+  font-size: 34px;
+  font-weight: 500;
+  color: #333;
+}
+
+/*CategoriesCard*/
+.categories-container {
+    display: flex;
+    align-items: center;
+    overflow-x: auto; 
+    gap: 5rem;
+    margin-top: 3rem;
+}
+
+.categories-card {
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 3%;
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5rem;
+  
+}
+
+.categories-card-container {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    height: 12rem;
+    min-width: 10rem;
+    border: 1px solid #aaff64;
+}
+
+.categories-card-categorie {
+    background-color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 10px;
+    margin-left: 1.5rem;
+  margin-top: 1rem;
+}
+
+.categories-card-amount {
+    background-color: #ffffff;
+    font-size: 20px;
+    margin-left: 1.5rem;
+    font-weight: 700;
+}
+
+.categories-card-icon {
+  background-color: #ffffff;
+  height: 3.5rem;
+  width: 3.5rem;
+  margin-top: 2rem;
+  margin-left: 1rem;
+}
+  
