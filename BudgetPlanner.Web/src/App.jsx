@@ -1,5 +1,7 @@
+
 import { useState, useEffect } from 'react';
 import IncomeComponent from './components/IncomeComponent';
+import Dashboard from './Components/Daboard';
 
 function App() {
     const [incomes, setIncomes] = useState([]);
@@ -30,10 +32,11 @@ function App() {
             {}
             <IncomeComponent setIncomes={setIncomes} />
 
-
+            <Dashboard />
         
         </div>
     );
+
 }
 
 export default App;
