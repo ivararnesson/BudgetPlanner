@@ -1,62 +1,44 @@
-import React, { useState, useEffect } from "react";
-import "./IncomeComponent.css";
+import React, { useState } from 'react';
+import axios from 'axios';
+import './style/IncomeComponent.css';
 
-const IncomeComponent = ({ setIncomes }) => {
+const IncomeComponent = ({ setIncomes, totalIncome, setTotalIncome }) => {
     const [amount, setAmount] = useState(""); 
     const [date, setDate] = useState(""); 
-    const [saldo, setSaldo] = useState(0);
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        const income = { amount: parseFloat(amount), date };
-
+        const income = { 
+            amount: parseFloat(amount), 
+            createdAt: new Date(date).toISOString() 
+        };
+    
         if (amount <= 0) {
             alert("Beloppet måste vara större än 0!");
             return;
         }
-
+    
         try {
-            setLoading(true); 
-            const response = await fetch("http://localhost:5174/api/income", {
-                method: "POST",
+            setLoading(true);
+            const response = await axios.post("https://localhost:7246/api/income", income, {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(income), 
             });
 
-            if (!response.ok) {
-                const errorMessage = await response.text();
-                throw new Error(errorMessage);
-            }
+            setTotalIncome(response.data.totalIncome); 
 
-            const data = await response.json();
-            setSaldo(data.totalIncome);
-            setIncomes(prevIncomes => [...prevIncomes, { ...income, id: Date.now(), createdAt: new Date() }]); 
+            setIncomes(prevIncomes => [...prevIncomes, income]);
             setAmount("");
             setDate("");
         } catch (error) {
             console.error("Error adding income:", error);
-            alert("Det gick inte att lägga till inkomsten: " + error.message);
+            alert("Det gick inte att lägga till inkomsten: " + (error?.response?.data || error.message));
         } finally {
             setLoading(false);
         }
     };
-
-    useEffect(() => {
-        const fetchSaldo = async () => {
-            const response = await fetch("https://localhost:7246/api/income"); 
-            if (!response.ok) {
-                const errorMessage = await response.text();
-                throw new Error(errorMessage);
-            }
-            const data = await response.json();
-            setSaldo(data.totalIncome); 
-        };
-        fetchSaldo();
-    }, []);
 
     return (
         <div className="income-component">
@@ -66,19 +48,19 @@ const IncomeComponent = ({ setIncomes }) => {
                     type="number"
                     placeholder="Amount"
                     value={amount}
-                    onChange={(e) => setAmount(e.target.value)} // Update amount state on change
+                    onChange={(e) => setAmount(e.target.value)}
                     required
                 />
                 <input
                     type="date"
                     value={date}
-                    onChange={(e) => setDate(e.target.value)} // Update date state on change
+                    onChange={(e) => setDate(e.target.value)}
                     required
                 />
                 <button type="submit" disabled={loading}>Add Income</button>
             </form>
-            {loading && <p>Laddar...</p>} {/* Show loading text if in loading state */}
-            <h3>Saldo: {saldo.toFixed(2)} kr</h3> {/* Display saldo */}
+            {loading && <p>Laddar...</p>}
+            <h3>Saldo: {totalIncome.toFixed(2)} kr</h3> {}
         </div>
     );
 };

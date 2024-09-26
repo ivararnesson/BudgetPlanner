@@ -1,44 +1,35 @@
-
 import { useState, useEffect } from 'react';
 import IncomeComponent from './components/IncomeComponent';
 import Dashboard from './Components/Daboard';
 
 function App() {
     const [incomes, setIncomes] = useState([]);
+    const [totalIncome, setTotalIncome] = useState(0); 
 
     useEffect(() => {
-        const fetchIncomes = async () => {
+        const fetchTotalIncome = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/income');
+                const response = await fetch('https://localhost:7246/api/income/total');
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 const data = await response.json();
-                setIncomes(data);
+                setTotalIncome(data.totalIncome); 
             } catch (error) {
-                console.error('Error fetching incomes:', error);
+                console.error('Error fetching total income:', error);
             }
         };
 
-        fetchIncomes();
+        fetchTotalIncome();
     }, []);
-
-    const totalIncome = incomes.reduce((acc, income) => acc + income.amount, 0);
 
     return (
         <div>
             <h1>Budget Planner</h1>
-
-            {}
-            <IncomeComponent setIncomes={setIncomes} />
-
+            <IncomeComponent setIncomes={setIncomes} totalIncome={totalIncome} setTotalIncome={setTotalIncome} />
             <Dashboard />
-        
         </div>
     );
-
 }
 
 export default App;
-
-

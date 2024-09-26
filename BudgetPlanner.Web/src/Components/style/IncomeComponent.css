@@ -1,0 +1,87 @@
+.income-component {
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 30px;
+    margin: 20px auto;
+    background-color: #f9f9f9;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    transition: all 0.3s ease-in-out;
+}
+
+.income-component:hover {
+    transform: scale(1.02); /* En liten hover-effekt */
+}
+
+.income-component h2 {
+    color: #34495e;
+    font-size: 1.75em;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.income-component form {
+    display: flex;
+    flex-direction: column;
+}
+
+.income-component input {
+    margin-bottom: 20px;
+    padding: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.income-component input:focus {
+    border-color: #3498db;
+    box-shadow: 0 4px 10px rgba(52, 152, 219, 0.2); /* Färg på input-focus */
+    outline: none;
+}
+
+.income-component button {
+    padding: 14px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.income-component button:hover {
+    background-color: #2980b9;
+    box-shadow: 0 6px 15px rgba(41, 128, 185, 0.2);
+}
+
+.income-component h3 {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 1.3em;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+@media (max-width: 480px) {
+    .income-component {
+        padding: 20px;
+        margin: 10px;
+    }
+
+    .income-component h2 {
+        font-size: 1.5em;
+    }
+
+    .income-component input,
+    .income-component button {
+        font-size: 0.95em;
+        padding: 12px;
+    }
+}
