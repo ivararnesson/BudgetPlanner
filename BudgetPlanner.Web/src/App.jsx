@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import IncomeForm from './IncomeComponent'; 
+import IncomeComponent from './components/IncomeComponent';
 
 function App() {
     const [incomes, setIncomes] = useState([]);
@@ -21,24 +21,21 @@ function App() {
         fetchIncomes();
     }, []);
 
-   
     const totalIncome = incomes.reduce((acc, income) => acc + income.amount, 0);
 
     return (
         <div>
             <h1>Budget Planner</h1>
-            <IncomeForm setIncomes={setIncomes} />
-            <h2>Your Incomes</h2>
-            <ul>
-                {incomes.map(income => (
-                    <li key={income.id}>
-                        Amount: ${income.amount} (Added on: {new Date(income.createdAt).toLocaleDateString()})
-                    </li>
-                ))}
-            </ul>
-            <h3>Total Income: ${totalIncome.toFixed(2)}</h3>
+
+            {}
+            <IncomeComponent setIncomes={setIncomes} />
+
+
+        
         </div>
     );
 }
 
 export default App;
+
+
