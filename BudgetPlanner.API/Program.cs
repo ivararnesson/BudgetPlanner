@@ -17,9 +17,19 @@ builder.Services.AddCors(options =>
 builder.Services.AddDbContext<ChoreContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
 app.UseCors("AllowAll");
+
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "BudgetPlanner API V1");
+    c.RoutePrefix = "swagger"; 
+});
 
 app.MapPost("/api/income", async (Income income, ChoreContext context) =>
 {
@@ -55,8 +65,20 @@ app.MapPut("/api/income/{id}", async (int id, Income income, ChoreContext contex
 app.MapGet("/api/income/total", async (ChoreContext context) =>
 {
     var totalIncome = await context.Incomes.SumAsync(i => i.Amount);
-
     return Results.Ok(new { totalIncome });
 });
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<ChoreContext>();
+
+    if (await context.Database.CanConnectAsync())
+    {
+        Console.WriteLine("Database connection successful.");
+    }
+    else
+    {
+        Console.WriteLine("Database connection failed.");
+    }
+}
 
 app.Run();
