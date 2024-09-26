@@ -1,6 +1,6 @@
 import React from "react";
-import MainCard from "./MainCard";
-import CategoriesCard from "./CategoriesCard";
+import MainCard from "./DashbordComponents/MainCard";
+import CategoriesCard from "./DashbordComponents/CategoriesCard";
 import "../Components/style/dashboard.css";
 
 function Dashboard() {
