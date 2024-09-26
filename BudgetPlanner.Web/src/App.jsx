@@ -1,7 +1,9 @@
-
 import { useState, useEffect } from 'react';
 import IncomeComponent from './components/IncomeComponent';
 import Dashboard from './Components/Daboard';
+import Sidebar from './components/Sidebar'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import CustomNavbar from './components/CustomNavbar'
 
 function App() {
     const [incomes, setIncomes] = useState([]);
@@ -31,6 +33,9 @@ function App() {
 
             {}
             <IncomeComponent setIncomes={setIncomes} />
+              
+             <CustomNavbar />
+             <Sidebar />
 
             <Dashboard />
         
