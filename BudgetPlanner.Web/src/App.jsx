@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
-import IncomeComponent from './components/IncomeComponent';
+import { useState, useEffect } from "react";
+import Dashboard from "./components/Daboard"; // Assuming this is correct
+import IncomeComponent from "./components/IncomeComponent"; // Change here to match the filename
 
 function App() {
     const [incomes, setIncomes] = useState([]);
-    const [totalIncome, setTotalIncome] = useState(0); 
+    const [totalIncome, setTotalIncome] = useState(0);
 
     useEffect(() => {
         const fetchTotalIncome = async () => {

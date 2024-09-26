@@ -26,9 +26,11 @@ const IncomeComponent = ({ setIncomes, totalIncome, setTotalIncome }) => {
                     "Content-Type": "application/json",
                 },
             });
-
-            setTotalIncome(response.data.totalIncome); 
-
+    
+            // Använd det totala saldot från svaret
+            setTotalIncome(response.data.totalIncome); // Uppdatera total income
+            
+            // Om du inte behöver ID, lägg bara till income i listan utan ID
             setIncomes(prevIncomes => [...prevIncomes, income]);
             setAmount("");
             setDate("");
@@ -60,7 +62,7 @@ const IncomeComponent = ({ setIncomes, totalIncome, setTotalIncome }) => {
                 <button type="submit" disabled={loading}>Add Income</button>
             </form>
             {loading && <p>Laddar...</p>}
-            <h3>Saldo: {totalIncome.toFixed(2)} kr</h3> {}
+            <h3>Saldo: {totalIncome.toFixed(2)} kr</h3> {/* Display totalIncome as saldo */}
         </div>
     );
 };
