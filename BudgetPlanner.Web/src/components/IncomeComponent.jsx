@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../Components/style/IncomeComponent.css";
+import "./style/IncomeComponent.css";
 
 const IncomeComponent = ({ setIncomes }) => {
     const [amount, setAmount] = useState(""); 

@@ -1,5 +1,5 @@
 import React from "react";
-import "../DashbordComponents/FoodCategorie";
+import "./FoodCategorie";
 import FoodCategorie from "./FoodCategorie";
 
 export default function CategoriesCard() {

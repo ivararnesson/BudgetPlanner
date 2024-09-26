@@ -1,5 +1,5 @@
 import React, { useState }from "react";
-import "../Components/style/SideNavbar.css"
+import "./style/SideNavbar.css"
 import { PieChart, Pie, Cell, ResponsiveContainer, Label } from 'recharts';
 
 export default function Savings() {
