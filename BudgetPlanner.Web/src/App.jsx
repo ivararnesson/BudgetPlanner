@@ -30,8 +30,7 @@ function App() {
     return (
         <div>
             <h1>Budget Planner</h1>
-
-            {}
+            
             <IncomeComponent setIncomes={setIncomes} />
               
              <CustomNavbar />
