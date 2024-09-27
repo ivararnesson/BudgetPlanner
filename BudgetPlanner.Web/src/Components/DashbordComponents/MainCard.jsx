@@ -19,15 +19,15 @@ function MainCard() {
       {
         label: "Inkomst",
         data: incomeData,
-        backgroundColor: 'rgba(54, 162, 235, 0.8)',
-        borderColor: 'rgb(54, 162, 235)',
+        backgroundColor: 'rgba(0, 164, 0, 0.8)',
+        borderColor: 'rgb(0, 164, 0)',
         borderWidth: 0.5
       },
       {
         label: 'Utgifter',
         data: expenseData,
-        backgroundColor: 'rgba(255, 99, 132, 0.8)',
-        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(209, 26, 26, 0.8)',
+        borderColor: 'rgb(209, 26, 26)',
         borderWidth: 0.5
       }
     ]
