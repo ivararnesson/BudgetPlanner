@@ -7,13 +7,15 @@ import BudgetPlanner from './Components/BudgetPlanner';
 
 function App() {
 
+    /*
+    <BudgetPlanner />
+    */
+
     return (
         <div>
             
-            <BudgetPlanner />
-              
-             <CustomNavbar />
-             <Sidebar />
+            <CustomNavbar />
+            <Sidebar />
 
             <Dashboard />
         
