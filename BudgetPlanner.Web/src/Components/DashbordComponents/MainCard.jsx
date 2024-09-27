@@ -1,8 +1,8 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
-import "../Components/style/dashboard.css";
-import { incomeData, expenseData } from '../DataChart'; 
+import "../style/Dashboard.css";
+import { incomeData, expenseData } from '../../DataChart'; 
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
