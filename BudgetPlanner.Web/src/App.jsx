@@ -4,7 +4,8 @@ import Sidebar from './components/Sidebar'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CustomNavbar from './components/CustomNavbar'
 import BudgetPlanner from './Components/BudgetPlanner';
-import IncomeCard from "./Components/IncomeCard";
+import IncomeBalance from './Components/IncomeBalance';
+
 
 function App() {
 
@@ -16,7 +17,7 @@ function App() {
         <div>
             <CustomNavbar />
             <div>
-                <IncomeCard /> 
+                <IncomeBalance />
             </div>
             <div>
                 <Sidebar />
