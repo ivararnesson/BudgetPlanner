@@ -1,7 +1,7 @@
 * {
   margin: 0;
   padding: 0;
-  background-color: #ececec;
+  /*background-color: #ececec;*/
 }
 
 /*MainCard*/
@@ -10,13 +10,15 @@
     background-color: #ffffff;
     border-radius: 12px;
     height: 35rem;
-    width: 70%;
+    max-width: 70%;
     margin-left: 5rem;
+    margin-right: 2.5rem;
     display: flex; 
     justify-content: center; 
     align-items: center; 
     padding: 25px; 
     border: 1px solid #aaff64;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); 
   }
   
 .chart {
@@ -46,10 +48,13 @@
     border-radius: 12px;
     padding: 15px;
     margin-top: 3%;
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
+    width: 90%;
+    margin-left: 5rem;
+    margin-right: 5rem;
     margin-bottom: 5rem;
+    border: #aaff64 2px solid;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); 
+    
   
 }
 
@@ -60,7 +65,7 @@
     border-radius: 12px;
     height: 12rem;
     min-width: 10rem;
-    border: 1px solid #aaff64;
+  border: #aaff64 2px solid;
 }
 
 .categories-card-categorie {
