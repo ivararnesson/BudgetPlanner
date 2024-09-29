@@ -27,7 +27,7 @@ function IncomeBalance() {
                     updateExpenses
                 }) => (
                     <div className="container">
-                        <h1>Budget för {months[selectedMonth]}</h1>
+                        <h1>Budgeten för {months[selectedMonth]}</h1>
                         <label>Välj månad:</label>
                         <select value={selectedMonth} onChange={handleMonthChange}>
                             {months.map((month, index) => (
