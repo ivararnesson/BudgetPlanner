@@ -12,7 +12,7 @@ export default function CustomNavbar() {
   return (
     <Navbar expand="lg" className="nav">
       <Container fluid>
-        <Navbar.Brand className="nav--title" href="#">
+        <Navbar.Brand className="nav--title" as={Link} to="/">
           <img
             className="nav--img"
             src={bpIcon}
@@ -26,9 +26,8 @@ export default function CustomNavbar() {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <Nav.Link href="#annannnComponent">Dashboard</Nav.Link>
-            <Nav.Link href="#annannComponent">Income</Nav.Link>
-            <Nav.Link href="#annannnnnComponent">Savings</Nav.Link>
+            <Nav.Link as={Link} to="/">Dashboard</Nav.Link>
+            <Nav.Link as={Link} to="/income">Income</Nav.Link>
             <Nav.Link href="#annanComponent">Expenses</Nav.Link>
             <NavDropdown title="Settings" id="navbarScrollingDropdown">
               <NavDropdown.Item href="#action3">Something</NavDropdown.Item>
