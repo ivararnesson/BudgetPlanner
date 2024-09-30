@@ -5,6 +5,7 @@
     margin-right: 5rem;
     margin-top: 3rem;
     border-radius: 12px;
+    margin-bottom: 3rem;
     /*border: #aaff64 1px solid;*/
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
@@ -128,4 +129,9 @@
 
 .income-container{
     margin-bottom: 20rem;
+}
+
+.expenses-page-container {
+  margin-bottom: 20rem;
+  margin-top: 30rem;
 }
