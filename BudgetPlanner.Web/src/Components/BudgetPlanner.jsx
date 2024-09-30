@@ -5,6 +5,7 @@ import Sidebar from "./Sidebar";
 import "./style/SideNavbar.css"
 
 
+
 function BudgetPlanner() {
     const [incomes, setIncomes] = useState([]);
 
@@ -29,6 +30,7 @@ function BudgetPlanner() {
 
     return (
         <div>
+        <div>
             <div className="butget-planer-sidebar">
                 <Sidebar />
             </div>
@@ -36,8 +38,12 @@ function BudgetPlanner() {
 
 
             <h1>Budget Planner</h1>
+            <div className="income-container">
             <IncomeComponent setIncomes={setIncomes} />
+            </div>
         
+
+        </div>
         </div>
     );
 
