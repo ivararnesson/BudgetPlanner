@@ -12,6 +12,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<PersonsContext>(o =>
     o.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Initial Catalog=Persons;Integrated Security=true;")
 );
+builder.Services.AddDbContext<IncomeContext>(o =>
+    o.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Initial Catalog=Income;Integrated Security=true;")
+);
 
 builder.Services.AddCors(options =>
 {
@@ -24,8 +27,8 @@ builder.Services.AddCors(options =>
         });
 });
 
-builder.Services.AddDbContext<ChoreContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+//builder.Services.AddDbContext<IncomeContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
@@ -37,22 +40,23 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("AllowAll");
 
-app.MapPost("/api/income", async (Income income, ChoreContext context) =>
+app.MapPost("/api/income", async (Income income, IncomeContext context) =>
 {
-    if (income == null || income.Amount <= 0)
+    if (income == null || income.Amount <= 0 || income.CreatedAt == default)
     {
         return Results.BadRequest("Invalid income data.");
     }
 
+    income.PersonId = 1;
     context.Incomes.Add(income);
     await context.SaveChangesAsync();
 
     var totalIncome = await context.Incomes.SumAsync(i => i.Amount);
 
-    return Results.Created($"/api/income/{income.Id}", new { income, totalIncome });
+    return Results.Created($"/api/income/{income.Id}", new { income, totalIncome,  });
 });
 
-app.MapPut("/api/income/{id}", async (int id, Income income, ChoreContext context) =>
+app.MapPut("/api/income/{id}", async (int id, Income income, IncomeContext context) =>
 {
     var existingIncome = await context.Incomes.FindAsync(id);
     if (existingIncome == null)
@@ -60,15 +64,16 @@ app.MapPut("/api/income/{id}", async (int id, Income income, ChoreContext contex
         return Results.NotFound();
     }
 
+    existingIncome.PersonId = 1;
     existingIncome.Amount = income.Amount;
     await context.SaveChangesAsync();
 
     var totalIncome = await context.Incomes.SumAsync(i => i.Amount);
 
-    return Results.Ok(new { income = existingIncome, totalIncome });
+    return Results.Ok(new { income = existingIncome, totalIncome, createdAt = income.CreatedAt });
 });
 
-app.MapGet("/api/income/total", async (ChoreContext context) =>
+app.MapGet("/api/income/total", async (IncomeContext context) =>
 {
     var totalIncome = await context.Incomes.SumAsync(i => i.Amount);
 

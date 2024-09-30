@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./style/IncomeComponent.css";
+import { baseUrl } from "../constants";
 
 const IncomeComponent = ({ setIncomes }) => {
     const [amount, setAmount] = useState(""); 
@@ -10,7 +11,10 @@ const IncomeComponent = ({ setIncomes }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const income = { amount: parseFloat(amount), date };
+        const income = { 
+            amount: parseFloat(amount), 
+            createdAt: date
+        };
 
         if (amount <= 0) {
             alert("Beloppet måste vara större än 0!");
@@ -19,7 +23,7 @@ const IncomeComponent = ({ setIncomes }) => {
 
         try {
             setLoading(true); 
-            const response = await fetch("http://localhost:5174/api/income", {
+            const response = await fetch(`${baseUrl}/api/income`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -47,7 +51,7 @@ const IncomeComponent = ({ setIncomes }) => {
 
     useEffect(() => {
         const fetchSaldo = async () => {
-            const response = await fetch("https://localhost:7246/api/income"); 
+            const response = await fetch(`${baseUrl}/api/income/total`); 
             if (!response.ok) {
                 const errorMessage = await response.text();
                 throw new Error(errorMessage);

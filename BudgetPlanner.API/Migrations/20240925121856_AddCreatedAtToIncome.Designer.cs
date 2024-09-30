@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BudgetPlanner.API.Migrations
 {
-    [DbContext(typeof(ChoreContext))]
+    [DbContext(typeof(IncomeContext))]
     [Migration("20240925121856_AddCreatedAtToIncome")]
     partial class AddCreatedAtToIncome
     {
