@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import IncomeComponent from './IncomeComponents';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Sidebar from "./Sidebar";
+import "./style/SideNavbar.css"
+
 
 
 function BudgetPlanner() {
@@ -27,10 +30,20 @@ function BudgetPlanner() {
 
     return (
         <div>
+        <div>
+            <div className="butget-planer-sidebar">
+                <Sidebar />
+            </div>
+
+
 
             <h1>Budget Planner</h1>
+            <div className="income-container">
             <IncomeComponent setIncomes={setIncomes} />
+            </div>
         
+
+        </div>
         </div>
     );
 

@@ -5,7 +5,7 @@
     margin-right: 5rem;
     margin-top: 3rem;
     border-radius: 12px;
-    border: #aaff64 1px solid;
+    /*border: #aaff64 1px solid;*/
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 .nav--img {
@@ -28,9 +28,10 @@
     padding: 1.25rem;
     height: 35rem;
     background-color: #fff;
-    border-radius: 0.75rem;
-    border: solid 0.0625rem #aaff64;
-    box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    /*border: solid 1px #aaff64;*/
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+
 }
 
 .savings--form {
@@ -80,6 +81,7 @@
 }
 .piechart--container {
     width: 100%;
+
     height: auto;
     margin-bottom: 1.25rem;
 }
@@ -119,4 +121,12 @@
 
 .goal-message button:hover {
     background-color: #e5574b;
+}
+
+.butget-planer-sidebar {
+  margin-top: 3rem;
+}
+
+.income-container{
+    margin-bottom: 20rem;
 }
