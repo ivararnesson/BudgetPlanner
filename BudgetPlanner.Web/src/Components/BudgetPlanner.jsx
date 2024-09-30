@@ -30,20 +30,15 @@ function BudgetPlanner() {
 
     return (
         <div>
-        <div>
-            <div className="butget-planer-sidebar">
-                <Sidebar />
+            <div>
+                <div className="butget-planer-sidebar">
+                    <Sidebar />
+                </div>
+
+                <div className="income-container">
+                    <IncomeComponent setIncomes={setIncomes} />
+                </div>
             </div>
-
-
-
-            <h1>Budget Planner</h1>
-            <div className="income-container">
-            <IncomeComponent setIncomes={setIncomes} />
-            </div>
-        
-
-        </div>
         </div>
     );
 
