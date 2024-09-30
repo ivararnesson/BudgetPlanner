@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BudgetPlanner.API.Migrations
 {
-    [DbContext(typeof(ChoreContext))]
+    [DbContext(typeof(IncomeContext))]
     [Migration("20240924111430_AddIncomeModelV3")]
     partial class AddIncomeModelV3
     {

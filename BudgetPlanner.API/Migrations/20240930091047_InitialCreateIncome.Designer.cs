@@ -4,6 +4,7 @@ using BudgetPlanner.API;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BudgetPlanner.API.Migrations
 {
     [DbContext(typeof(IncomeContext))]
-    partial class ChoreContextModelSnapshot : ModelSnapshot
+    [Migration("20240930091047_InitialCreateIncome")]
+    partial class InitialCreateIncome
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,6 +45,15 @@ namespace BudgetPlanner.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Incomes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Amount = 1000m,
+                            CreatedAt = new DateTime(2024, 9, 30, 9, 10, 47, 69, DateTimeKind.Utc).AddTicks(5771),
+                            PersonId = 1
+                        });
                 });
 #pragma warning restore 612, 618
         }
