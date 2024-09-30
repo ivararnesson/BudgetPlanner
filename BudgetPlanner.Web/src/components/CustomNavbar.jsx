@@ -27,7 +27,7 @@ export default function CustomNavbar() {
           >
             <Nav.Link as={Link} to="/">Dashboard</Nav.Link>
             <Nav.Link as={Link} to="/income">Inkomst</Nav.Link>
-            <Nav.Link href="#annanComponent">Utgifter</Nav.Link>
+            <Nav.Link as={Link} to="/expences">Utgifter</Nav.Link>
           </Nav>
           <Form className="d-flex">
             <Form.Control
