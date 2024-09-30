@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react';
-import IncomeComponent from './components/IncomeComponent';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Dashboard from './Components/Daboard';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import CustomNavbar from './components/CustomNavbar'
+import BudgetPlanner from './Components/BudgetPlanner';
 
 function App() {
+<<<<<<< HEAD
     const [incomes, setIncomes] = useState([]);
     const [totalIncome, setTotalIncome] = useState(0); 
 
@@ -29,6 +33,18 @@ function App() {
             <IncomeComponent setIncomes={setIncomes} totalIncome={totalIncome} setTotalIncome={setTotalIncome} />
             <Dashboard />
         </div>
+=======
+
+    return (
+            <Router>
+                <CustomNavbar />
+                
+                <Routes>
+                    <Route path='/' element={<Dashboard />} />
+                    <Route path='/income' element={<BudgetPlanner />} />
+                </Routes>
+            </Router>       
+>>>>>>> 7530c60a25ff83c814bad3197fd0e5f8ad4b2703
     );
 }
 

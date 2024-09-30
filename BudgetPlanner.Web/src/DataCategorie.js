@@ -28,20 +28,23 @@ const foodData = [
         price: 400,
         coverImg: tShirtImg,
     },
-    {
-        category: "Övrigt",
-        price: 100,
-        coverImg: addImg,
-    },
+   
     {
         category: "Hem",
         price: 4000,
         coverImg: homeImg,
     },
+
     {
         category: "Lån",
         price: 4000,
         coverImg: loanImg,
+    },
+
+    {
+        category: "Övrigt",
+        price: 100,
+        coverImg: addImg,
     },
 ];
 

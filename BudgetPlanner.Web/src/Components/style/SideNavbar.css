@@ -1,0 +1,55 @@
+.nav {
+    height: 5rem;
+    width: 90%;
+    margin-left: 5rem;
+    margin-right: 5rem;
+    margin-top: 3rem;
+    border-radius: 12px;
+    border: #aaff64 1px solid;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+.nav--img {
+    width: 3.5rem;
+}
+
+/*sidebar*/
+
+.sidebar {
+    margin-right: 5rem;
+    float: right;
+    margin-top: 0;
+    max-width: 15rem;
+    max-height: 35rem;
+}
+.savings--container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 20px;
+    height: 35rem;
+    background-color: #fff;
+    border-radius: 12px;
+    border: solid 1px #aaff64;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+.savings--form {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+}
+.savings--input-number {
+    margin-bottom: 5px;
+    background-color: #fff;
+}
+.savings--input-date {
+    margin-bottom: 20px;
+    background-color: #fff;
+}
+.piechart--container {
+    align-self: flex-end;
+    width: 100%;
+}
+
+.butget-planer-sidebar {
+  margin-top: 3rem;
+}
