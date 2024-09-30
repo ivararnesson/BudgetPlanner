@@ -16,8 +16,8 @@
 
 .sidebar {
     margin-right: 5rem;
+    margin-top: 3rem;
     float: right;
-    margin-top: 0;
     max-width: 15rem;
     max-height: 35rem;
 }
@@ -25,27 +25,98 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    padding: 20px;
+    padding: 1.25rem;
     height: 35rem;
     background-color: #fff;
-    border-radius: 12px;
-    border: solid 1px #aaff64;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 0.75rem;
+    border: solid 0.0625rem #aaff64;
+    box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.3);
 }
+
 .savings--form {
     display: flex;
     flex-direction: column;
-    background-color: #fff;
 }
-.savings--input-number {
-    margin-bottom: 5px;
-    background-color: #fff;
+
+.savings--h3 {
+    color: #00C49F;
+    font-size: 1.5rem;
+    margin-bottom: 0.625rem;
 }
+
+.savings--input-number,
 .savings--input-date {
-    margin-bottom: 20px;
-    background-color: #fff;
+    width: 100%;
+    padding: 0.75rem 0.9375rem;
+    margin-bottom: 0.9375rem;
+    border: 0.0625rem solid #ccc;
+    border-radius: 0.3125rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.savings--input-number:focus,
+.savings--input-date:focus {
+    border-color: #aaff64;
+    box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.3);
+    outline: none;
+}
+
+.savings--btn {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 0.625rem;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 0.3125rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+.savings--btn:hover {
+    background-color: #45a049; 
+    box-shadow: 0 0.125rem 0.3125rem rgba(0, 136, 254, 0.2);
 }
 .piechart--container {
-    align-self: flex-end;
     width: 100%;
+    height: auto;
+    margin-bottom: 1.25rem;
+}
+
+.piechart--container h3 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.goal-message {
+    background-color: #e8fff1;
+    border: 0.0625rem solid #00C49F;
+    padding: 1.25rem;
+    border-radius: 0.3125rem;
+    text-align: center;
+}
+
+.goal-message h2 {
+    color: #00C49F;
+    font-size: 1.5rem;
+    margin-bottom: 0.625rem;
+}
+
+.goal-message button {
+    background-color: #ff6961;
+    color: white;
+    border: none;
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.3125rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.goal-message button:hover {
+    background-color: #e5574b;
 }

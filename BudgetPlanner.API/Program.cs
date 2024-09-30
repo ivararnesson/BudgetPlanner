@@ -29,6 +29,12 @@ builder.Services.AddDbContext<ChoreContext>(options =>
 
 var app = builder.Build();
 
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
 app.UseCors("AllowAll");
 
 app.MapPost("/api/income", async (Income income, ChoreContext context) =>
