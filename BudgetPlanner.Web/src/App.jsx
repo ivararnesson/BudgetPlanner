@@ -10,16 +10,15 @@ import ExpensesPage from '../src/Components/ExpenceComponent';
 function App() {
 
     return (
-            <Router>
-                <CustomNavbar />
-                
-                <Routes>
-                    <Route path='/' element={<Dashboard />} />
-                    <Route path='/income' element={<BudgetPlanner />} />
-                    <Route path="/expences" element={<ExpensesPage />} />
-                </Routes>
-      <CustomFooter />
-            </Router>       
+        <Router>
+            <CustomNavbar />               
+            <Routes>
+                <Route path='/' element={<Dashboard />} />
+                <Route path='/income' element={<BudgetPlanner />} />
+                <Route path="/expences" element={<ExpensesPage />} />
+            </Routes>
+            <CustomFooter />
+        </Router>       
     );
 }
 
