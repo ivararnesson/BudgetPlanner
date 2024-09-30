@@ -26,7 +26,7 @@ function IncomeBalance() {
                     updateIncome,
                     updateExpenses
                 }) => (
-                    <div className="container">
+                    <div className="container-balance">
                         <h1>Budgeten för {months[selectedMonth]}</h1>
                         <label>Välj månad:</label>
                         <select value={selectedMonth} onChange={handleMonthChange}>
