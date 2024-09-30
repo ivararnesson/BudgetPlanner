@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BudgetPlanner.API.Migrations
 {
-    [DbContext(typeof(ChoreContext))]
+    [DbContext(typeof(IncomeContext))]
     [Migration("20240924074239_update")]
     partial class Update
     {

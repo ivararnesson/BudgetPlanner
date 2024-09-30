@@ -1,50 +1,93 @@
-import React, { useState }from "react";
+import React, { useEffect, useState }from "react"
 import "./style/SideNavbar.css"
-import { PieChart, Pie, Cell, ResponsiveContainer, Label } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer, Label } from 'recharts'
+import { baseUrl } from "../constants.js"
 
 export default function Savings() {
-    const [savings, setSavings] = useState(0);
-    const [savingsGoal, setSavingsGoal] = useState(0);
+    const [savings, setSavings] = useState(0)
+    const [savingsGoal, setSavingsGoal] = useState(0)
+    const [savingsInput, setSavingsInput] = useState("")
     const [goalReached, setGoalReached] = useState(false)
-    console.log("render")
 
     const data = [
         { name: 'Sparat', value: savings },
         { name: 'Återstående', value: savingsGoal - savings }
     ];
 
-    function handleSubmit(event) {
-        event.preventDefault()
-        const inputValue = parseFloat(event.target.elements[0].value);
+    useEffect(() => {
+        getData()
+    }, [])
 
-        if (event.nativeEvent.submitter.name === "save") {
-            if (savingsGoal === 0 ) {
-                alert("Vänligen sätt ett sparmål innan du lägger till sparande.");
-                return;
-            }
+    const getData = async () => {
+        const res = await fetch(`${baseUrl}/api/person`)
+        const data = await res.json()
 
-            if (inputValue > 0) {
-                setSavings(prevSavings => {
-                    const newSavings = prevSavings + inputValue;
-
-                    if (newSavings >= savingsGoal) {
-                        setGoalReached(true)
-                    }
-                    return newSavings;
-                });
-            }
-        } 
-        else if (event.nativeEvent.submitter.name === "setgoal") {
-            if (inputValue > 0) {
-                setSavingsGoal(inputValue)
-                setGoalReached(false)
-            }
+        if (data.length > 0) {
+            const person = data[0]
+            setSavingsGoal(person.savingsGoal)
+            setSavings(person.savedMoney)
         }
-
-        event.target.elements[0].value = ""
     }
 
-    const COLORS = ['#0088FE', '#00C49F']
+    const resetBtn = async (event) => {
+        event.preventDefault()
+
+        await fetch(`${baseUrl}/api/reset/1`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify()
+        })
+
+        setGoalReached(false)
+        setSavingsGoal(0)
+        setSavings(0)
+    }
+
+    const handleSubmit = async (event) => {
+        event.preventDefault()
+        const buttonName = event.nativeEvent.submitter.name
+
+        if(buttonName === "save") {
+            const newSavings = savings + parseInt(savingsInput, 10)
+            const updatedSavings = {
+                savedMoney : newSavings
+            }
+            if (newSavings >= savingsGoal) {
+                setGoalReached(true)
+            }
+
+            const res = await fetch(`${baseUrl}/api/1`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedSavings)
+            })
+
+            const data = await res.json()
+            setSavings(data.savedMoney)
+            setSavingsInput("")
+        }
+        else if (buttonName === "setgoal") {
+            const goalData = {
+                savingsGoal: parseInt(savingsInput, 10)
+            }
+            const res = await fetch(`${baseUrl}/api/goal/1`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(goalData)
+            })
+            const data = await res.json()
+            setSavingsGoal(data.savingsGoal)
+            setSavingsInput("")
+        }
+    }
+
+    const COLORS =  ['#4CAF50', '#FF5733']
 
     return (
         <div className="sidebar">
@@ -54,6 +97,8 @@ export default function Savings() {
                         type="number"
                         className="savings--input-number" 
                         placeholder="Spara/Sätt sparmål"
+                        value={savingsInput}
+                        onChange={(e) => setSavingsInput(e.target.value)}
                         required
                     />
                     <input 
@@ -65,39 +110,34 @@ export default function Savings() {
                 </form>
                 <div className="piechart--container">
                     <h3>{`SPARMÅL ${savingsGoal}`}</h3>
-                    <ResponsiveContainer width="100%" height={300}>
-                        <PieChart>
-                            <Pie
-                                data={data}
-                                cx="50%"
-                                cy="50%"
-                                outerRadius={80}
-                                fill="#8884d8"
-                                dataKey="value"
-                            >
-                                {data.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                ))}
-                                <Label 
-                                    value={`${savings} SEK sparat`} 
-                                    position="center" 
-                                    style={{ fontSize: '20px', fontWeight: 'bold', fill: '#000' }} 
-                                />
-                            </Pie>
-                        </PieChart>
-                    </ResponsiveContainer>
+                    {goalReached ? (
+                        <div className="goal-message">
+                            <h2>{`Grattis du har sparat ${savingsGoal}`}</h2>
+                            <button onClick={resetBtn}>Nollställ</button>
+                        </div>) : (
+                        <ResponsiveContainer width="100%" height={300}>
+                            <PieChart>
+                                <Pie
+                                    data={data}
+                                    cx="50%"
+                                    cy="40%"
+                                    outerRadius={80}
+                                    fill="#8884d8"
+                                    dataKey="value"
+                                >
+                                    {data.map((entry, index) => (
+                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                    ))}
+                                    <Label 
+                                        value={`${savings} SEK sparat`} 
+                                        position="center" 
+                                        style={{ fontSize: '20px', fontWeight: 'bold', fill: '#000' }} 
+                                    />
+                                </Pie>
+                            </PieChart>
+                        </ResponsiveContainer>
+                    )}
                 </div>
-                {goalReached && (
-                    <div className="goal-message">
-                        <h2>BRATTE DU KLARA DET</h2>
-                        <p>Du har sparat {savings} SEK, vilket uppfyller ditt mål på {savingsGoal} SEK.</p>
-                        <button onClick={() => { 
-                            setGoalReached(false)
-                            setSavings(0)
-                            setSavingsGoal(0)
-                        }}>Nollställ</button>
-                    </div>
-                )}
             </div>
         </div>
     )
