@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BudgetPlanner.API.Migrations.Persons
 {
     [DbContext(typeof(PersonsContext))]
-    [Migration("20240926145507_InitialCreatePersons")]
-    partial class InitialCreatePersons
+    [Migration("20240930112330_AddPersonsDB")]
+    partial class AddPersonsDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

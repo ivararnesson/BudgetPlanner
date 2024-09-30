@@ -5,7 +5,7 @@
 namespace BudgetPlanner.API.Migrations.Persons
 {
     /// <inheritdoc />
-    public partial class InitialCreatePersons : Migration
+    public partial class AddPersonsDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
