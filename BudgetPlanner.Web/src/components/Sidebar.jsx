@@ -1,7 +1,8 @@
 import React, { useEffect, useState }from "react"
 import "./style/SideNavbar.css"
-import { PieChart, Pie, Cell, ResponsiveContainer, Label } from 'recharts'
 import { baseUrl } from "../constants.js"
+import SavingsForm from "./SavingsForm.jsx"
+import SavingsPieChart from "./SavingsPieChart.jsx"
 
 export default function Savings() {
     const [savings, setSavings] = useState(0)
@@ -87,55 +88,19 @@ export default function Savings() {
         }
     }
 
-    const COLORS =  ['#4CAF50', '#FF5733']
-
     return (
         <div className="sidebar">
             <div className="savings--container">
-                <form className="savings--form" onSubmit={handleSubmit}>
-                    <input 
-                        type="number"
-                        className="savings--input-number" 
-                        placeholder="Spara/Sätt sparmål"
-                        value={savingsInput}
-                        onChange={(e) => setSavingsInput(e.target.value)}
-                        required
-                    />
-                    <input 
-                        type="date" 
-                        className="savings--input-date" 
-                        placeholder="Sätt datum" />
-                    <button type="submit" className="savings--btn" name="save">Spara</button>
-                    <button type="submit" className="savings--btn" name="setgoal">Sätt sparmål</button>
-                </form>
+                <SavingsForm savingsInput={savingsInput} setSavingsInput={setSavingsInput} handleSubmit={handleSubmit} />
                 <div className="piechart--container">
                     <h3>{`SPARMÅL ${savingsGoal}`}</h3>
                     {goalReached ? (
                         <div className="goal-message">
                             <h2>{`Grattis du har sparat ${savingsGoal}`}</h2>
                             <button onClick={resetBtn}>Nollställ</button>
-                        </div>) : (
-                        <ResponsiveContainer width="100%" height={300}>
-                            <PieChart>
-                                <Pie
-                                    data={data}
-                                    cx="50%"
-                                    cy="40%"
-                                    outerRadius={80}
-                                    fill="#8884d8"
-                                    dataKey="value"
-                                >
-                                    {data.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                    ))}
-                                    <Label 
-                                        value={`${savings} SEK sparat`} 
-                                        position="center" 
-                                        style={{ fontSize: '20px', fontWeight: 'bold', fill: '#000' }} 
-                                    />
-                                </Pie>
-                            </PieChart>
-                        </ResponsiveContainer>
+                        </div>
+                    ) : (
+                        <SavingsPieChart data={data} savings={savings} />
                     )}
                 </div>
             </div>
