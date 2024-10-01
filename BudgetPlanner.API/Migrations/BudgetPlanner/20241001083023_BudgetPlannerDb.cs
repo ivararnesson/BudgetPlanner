@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace BudgetPlanner.API.Migrations
+namespace BudgetPlanner.API.Migrations.BudgetPlanner
 {
     /// <inheritdoc />
-    public partial class IncomeDB : Migration
+    public partial class BudgetPlannerDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -25,6 +25,20 @@ namespace BudgetPlanner.API.Migrations
                 {
                     table.PrimaryKey("PK_Incomes", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Savings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SavingsGoal = table.Column<int>(type: "int", nullable: false),
+                    SavedMoney = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Savings", x => x.Id);
+                });
         }
 
         /// <inheritdoc />
@@ -32,6 +46,9 @@ namespace BudgetPlanner.API.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Incomes");
+
+            migrationBuilder.DropTable(
+                name: "Savings");
         }
     }
 }
