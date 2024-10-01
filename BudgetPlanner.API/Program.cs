@@ -151,25 +151,25 @@ app.MapPost("/api/expenses", async (Expenses expenses, BudgetPlannerContext cont
 
     var totalExpens = await context.Expenses.SumAsync(i => i.Amount);
 
-    return Results.Created($"/api/income/{expenses.Id}", new { expenses, totalExpens });
+    return Results.Created($"/api/expenses/{expenses.Id}", new { expenses, totalExpens, });
 });
 
-//app.MapPut("/api/expenses/{id}", async (int id, Expenses expenses, BudgetPlannerContext context) =>
-//{
-//    var existingExpens = await context.Expenses.FindAsync(id);
-//    if (existingExpens == null)
-//    {
-//        return Results.NotFound();
-//    }
+app.MapPut("/api/expenses/{id}", async (int id, Expenses expenses, BudgetPlannerContext context) =>
+{
+    var existingExpens = await context.Expenses.FindAsync(id);
+    if (existingExpens == null)
+    {
+        return Results.NotFound();
+    }
 
-//    existingExpens.PersonId = 1;
-//    existingExpens.Amount = expenses.Amount;
-//    await context.SaveChangesAsync();
+    existingExpens.PersonId = 1;
+    existingExpens.Amount = expenses.Amount;
+    await context.SaveChangesAsync();
 
-//    var totalExpens = await context.Incomes.SumAsync(i => i.Amount);
+    var totalExpens = await context.Expenses.SumAsync(i => i.Amount);
 
-//    return Results.Ok(new { expenses = existingExpens, totalExpens, createdAt = expenses.CreatedAt });
-//});
+    return Results.Ok(new { expenses = existingExpens, totalExpens, createdAt = expenses.CreatedAt });
+});
 
 app.MapGet("/api/expenses/total", async (BudgetPlannerContext context) =>
 {
