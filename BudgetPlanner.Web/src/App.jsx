@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import CustomNavbar from '../src/Components/CustomNavbar'
 import BudgetPlanner from './Components/BudgetPlanner';
 import CustomFooter from "./Components/footer";
-import ExpensesPage from '../src/Components/ExpenceComponent';
+import ExpensesPage from './Components/ExpenceComponent';
 
 function App() {
 

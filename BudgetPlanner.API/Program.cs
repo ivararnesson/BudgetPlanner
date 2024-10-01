@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using BudgetPlanner.API;
+using BudgetPlanner.API.Models;
+using BudgetPlanner.API.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,11 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<PersonsContext>(o =>
-    o.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Initial Catalog=Persons;Integrated Security=true;")
-);
-builder.Services.AddDbContext<IncomeContext>(o =>
-    o.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Initial Catalog=Income;Integrated Security=true;")
+builder.Services.AddDbContext<BudgetPlannerContext>(o =>
+    o.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Initial Catalog=Budgetplanner;Integrated Security=true;")
 );
 
 builder.Services.AddCors(options =>
@@ -44,7 +43,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("AllowAll");
 
-app.MapPost("/api/income", async (Income income, IncomeContext context) =>
+app.MapPost("/api/income", async (Income income, BudgetPlannerContext context) =>
 {
     if (income == null || income.Amount <= 0 || income.CreatedAt == default)
     {
@@ -60,7 +59,7 @@ app.MapPost("/api/income", async (Income income, IncomeContext context) =>
     return Results.Created($"/api/income/{income.Id}", new { income, totalIncome,  });
 });
 
-app.MapPut("/api/income/{id}", async (int id, Income income, IncomeContext context) =>
+app.MapPut("/api/income/{id}", async (int id, Income income, BudgetPlannerContext context) =>
 {
     var existingIncome = await context.Incomes.FindAsync(id);
     if (existingIncome == null)
@@ -77,65 +76,105 @@ app.MapPut("/api/income/{id}", async (int id, Income income, IncomeContext conte
     return Results.Ok(new { income = existingIncome, totalIncome, createdAt = income.CreatedAt });
 });
 
-app.MapGet("/api/income/total", async (IncomeContext context) =>
+app.MapGet("/api/income/total", async (BudgetPlannerContext context) =>
 {
     var totalIncome = await context.Incomes.SumAsync(i => i.Amount);
     return Results.Ok(new { totalIncome });
 });
+
 app.MapGet("/api/person", GetAllPerson);
 
-app.MapPut("/api/goal/{id}", async (int id, Persons updatedPerson, PersonsContext db) =>
+app.MapPut("/api/goal/{id}", async (int id, Savings updatedSavings, BudgetPlannerContext db) =>
 {
-    var person = await db.Persons.FindAsync(id);
+    var saving = await db.Savings.FindAsync(id);
 
-    if (person == null)
+    if (saving == null)
     {
         return Results.NotFound();
     }
 
-    person.SavingsGoal = updatedPerson.SavingsGoal;
+    saving.SavingsGoal = updatedSavings.SavingsGoal;
 
     await db.SaveChangesAsync();
 
-    return Results.Ok(person);
+    return Results.Ok(saving);
 });
 
-app.MapPut("/api/{id}", async (int id, Persons updatedPerson, PersonsContext db) =>
+app.MapPut("/api/{id}", async (int id, Savings updatedSavings, BudgetPlannerContext db) =>
 {
-    var person = await db.Persons.FindAsync(id);
+    var saving = await db.Savings.FindAsync(id);
 
-    if (person == null)
+    if (saving == null)
     {
         return Results.NotFound();
     }
 
-    person.SavedMoney = updatedPerson.SavedMoney;
+    saving.SavedMoney = updatedSavings.SavedMoney;
 
     await db.SaveChangesAsync();
 
-    return Results.Ok(person);
+    return Results.Ok(saving);
 });
 
-app.MapPut("/api/reset/{id}", async (int id, PersonsContext db) =>
+app.MapPut("/api/reset/{id}", async (int id, BudgetPlannerContext db) =>
 {
-    var person = await db.Persons.FindAsync(id);
+    var saving = await db.Savings.FindAsync(id);
 
-    if (person == null)
+    if (saving == null)
     {
         return Results.NotFound();
     }
 
-    person.SavedMoney = 0;
-    person.SavingsGoal = 0;
+    saving.SavedMoney = 0;
+    saving.SavingsGoal = 0;
 
     await db.SaveChangesAsync();
 
-    return Results.Ok(person);
+    return Results.Ok(saving);
 });
 
-async Task<List<Persons>> GetAllPerson(PersonsContext db)
+async Task<List<Savings>> GetAllPerson(BudgetPlannerContext db)
 {
-    return await db.Persons.ToListAsync();
+    return await db.Savings.ToListAsync();
 }
+
+app.MapPost("/api/expenses", async (Expenses expenses, BudgetPlannerContext context) =>
+{
+    if (expenses == null || expenses.Amount <= 0 || expenses.CreatedAt == default)
+    {
+        return Results.BadRequest("Invalid income data.");
+    }
+
+    expenses.PersonId = 1;
+    context.Expenses.Add(expenses);
+    await context.SaveChangesAsync();
+
+    var totalExpens = await context.Expenses.SumAsync(i => i.Amount);
+
+    return Results.Created($"/api/expenses/{expenses.Id}", new { expenses, totalExpens, });
+});
+
+app.MapPut("/api/expenses/{id}", async (int id, Expenses expenses, BudgetPlannerContext context) =>
+{
+    var existingExpens = await context.Expenses.FindAsync(id);
+    if (existingExpens == null)
+    {
+        return Results.NotFound();
+    }
+
+    existingExpens.PersonId = 1;
+    existingExpens.Amount = expenses.Amount;
+    await context.SaveChangesAsync();
+
+    var totalExpens = await context.Expenses.SumAsync(i => i.Amount);
+
+    return Results.Ok(new { expenses = existingExpens, totalExpens, createdAt = expenses.CreatedAt });
+});
+
+app.MapGet("/api/expenses/total", async (BudgetPlannerContext context) =>
+{
+    var totalExpens = await context.Expenses.SumAsync(i => i.Amount);
+    return Results.Ok(new { totalExpens });
+});
 
 app.Run();
