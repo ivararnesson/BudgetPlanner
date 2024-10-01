@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "./style/IncomeComponent.css";
-import { baseUrl } from "../constants";
+import "../style/IncomeComponent.css";
+import { baseUrl } from "../../constants";
 
 const ExpensesComponent = ({ setExpenses }) => {
     const [amount, setAmount] = useState("")

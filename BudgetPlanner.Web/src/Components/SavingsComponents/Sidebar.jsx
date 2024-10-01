@@ -1,8 +1,8 @@
 import React, { useEffect, useState }from "react"
-import "./style/SideNavbar.css"
-import { baseUrl } from "../constants.js"
-import SavingsForm from "./SavingsForm.jsx"
-import SavingsPieChart from "./SavingsPieChart.jsx"
+import "../style/SideNavbar.css"
+import { baseUrl } from "../../constants.js"
+import SavingsForm from "../SavingsComponents/SavingsForm"
+import SavingsPieChart from "../SavingsComponents/SavingsPieChart"
 
 export default function Savings() {
     const [savings, setSavings] = useState(0)

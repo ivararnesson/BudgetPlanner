@@ -1,5 +1,5 @@
 import React from "react";
-import "../Components/style/dashboard.css";
+import "../style/dashboard.css";
 
 function CustomFooter() {
   return (

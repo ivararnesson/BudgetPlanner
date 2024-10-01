@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { baseUrl } from "../constants";
+import { baseUrl } from "../../constants";
 
 const IncomeData = ({ children, initialMonth }) => {
   const [selectedMonth, setSelectedMonth] = useState(initialMonth || 0);
@@ -8,7 +8,7 @@ const IncomeData = ({ children, initialMonth }) => {
   const [loading, setLoading] = useState(true);
 
   // Om data saknas, sätt 0 som fallback
-  const balance = (income[selectedMonth] || 0) - (expenses[selectedMonth] || 0);
+  const balance = (income[selectedMonth] || NaN) - (expenses[selectedMonth] || NaN);
 
   const handleMonthChange = (e) => {
     setSelectedMonth(parseInt(e.target.value));
@@ -71,8 +71,8 @@ const IncomeData = ({ children, initialMonth }) => {
   return (
     <div>
       {children({
-        income: income[selectedMonth] || 0, // Om data saknas, visa 0
-        expenses: expenses[selectedMonth] || 0, 
+        income: income[selectedMonth] || NaN, // Om data saknas, visa 0
+        expenses: expenses[selectedMonth] || NaN, 
         balance,
         selectedMonth,
         handleMonthChange,

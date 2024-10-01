@@ -1,9 +1,9 @@
 import React from "react";
-import MainCard from "./dashbordComponents/MainCard";
-import CategoriesCard from "./dashbordComponents/CategoriesCard";
-import "../Components/style/dashboard.css";
-import IncomeBalance from "./IncomeBalance";
-import Sidebar from "./Sidebar";
+import MainCard from "./MainCard";
+import CategoriesCard from "./CategoriesCard";
+import "../style/Dashboard.css";
+import IncomeBalance from "../BalanceComponents/IncomeBalance";
+import Sidebar from "../SavingsComponents/Sidebar";
 
 function Dashboard() {
   return (

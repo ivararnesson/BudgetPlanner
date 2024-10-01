@@ -4,8 +4,8 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom';
-import "./style/SideNavbar.css"
-import bpIcon from "../assets/BP-icon.png"
+import "../style/SideNavbar.css"
+import bpIcon from "../../Assets/BP-icon.png"
 
 export default function CustomNavbar() {
   return (

@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Dashboard from './Components/Daboard';
+import Dashboard from '../src/Components/DashbordComponents/Daboard';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import CustomNavbar from '../src/Components/CustomNavbar'
-import BudgetPlanner from './Components/BudgetPlanner';
-import CustomFooter from "./Components/footer";
-import ExpensesPage from './Components/ExpenceComponent';
+import CustomNavbar from '../src/Components/PageComponents/CustomNavbar'
+import BudgetPlanner from './Components/IncomeComponents/BudgetPlanner';
+import CustomFooter from "../src/Components/PageComponents/Footer";
+import ExpensesPage from './Components/ExpencesComponents/ExpenceComponent';
 
 function App() {
 
