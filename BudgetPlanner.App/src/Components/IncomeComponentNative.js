@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { baseUrl } from '../constants';
+import styles from '../Styles/IncomeStyles';
 
 const IncomeComponent = ({ setIncomes }) => {
     const [amount, setAmount] = useState('');
@@ -60,92 +61,29 @@ const IncomeComponent = ({ setIncomes }) => {
     }, []);
 
     return (
-        <View style={styles.background}>
-            <View style={styles.container}>
-                <Text style={styles.header}>Inkomster</Text>
-                <View style={styles.form}>
-                    <TextInput
-                        style={styles.input}
-                        keyboardType="numeric"
-                        placeholder="Belopp"
-                        value={amount}
-                        onChangeText={setAmount}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Datum (ÅÅÅÅ-MM-DD)"
-                        value={date}
-                        onChangeText={setDate}
-                    />
-                    <TouchableOpacity onPress={handleSubmit} style={styles.button} disabled={loading}>
-                        <Text style={styles.buttonText}>{loading ? 'Laddar...' : 'Lägg till inkomst'}</Text>
-                    </TouchableOpacity>
-                </View>
-                <Text style={styles.saldo}>Saldo: {saldo.toFixed(2)} kr</Text>
+        <View style={styles.container}>
+            <Text style={styles.header}>Inkomster</Text>
+            <View style={styles.form}>
+                <TextInput
+                    style={styles.input}
+                    keyboardType="numeric"
+                    placeholder="Belopp"
+                    value={amount}
+                    onChangeText={setAmount}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Datum (ÅÅÅÅ-MM-DD)"
+                    value={date}
+                    onChangeText={setDate}
+                />
+                <TouchableOpacity onPress={handleSubmit} style={styles.button} disabled={loading}>
+                    <Text style={styles.buttonText}>{loading ? 'Laddar...' : 'Lägg till inkomst'}</Text>
+                </TouchableOpacity>
             </View>
+            <Text style={styles.saldo}>Saldo: {saldo.toFixed(2)} kr</Text>
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    background: {
-        backgroundColor: '#Blue',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    container: {
-        backgroundColor: '#ffffff',
-        borderRadius: 12,
-        padding: 20,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.2,
-        shadowRadius: 5,
-        elevation: 5,
-        width: '80%',
-        maxWidth: 400,
-        alignItems: 'center',
-    },
-    header: {
-        fontSize: 28,
-        color: '#2c3e50',
-        marginBottom: 20,
-        fontWeight: 'bold',
-    },
-    form: {
-        width: '100%',
-    },
-    input: {
-        backgroundColor: '#fff',
-        padding: 16,
-        borderRadius: 8,
-        marginBottom: 15,
-        borderColor: '#ddd',
-        borderWidth: 1,
-        fontSize: 18,
-    },
-    button: {
-        backgroundColor: '#4CAF50',
-        paddingVertical: 20,
-        borderRadius: 10,
-        alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.2,
-        shadowRadius: 5,
-        elevation: 5,
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
-    saldo: {
-        marginTop: 30,
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: '#2c3e50',
-    },
-});
 
 export default IncomeComponent;
