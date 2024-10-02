@@ -17,7 +17,7 @@ const IncomeData = ({ children }) => {
         throw new Error("Failed to fetch income data.");
       }
       const data = await response.json();
-      setIncome(data.totalIncome); // Assuming the API returns an object with totalIncome
+      setIncome(data.totalIncome);
     } catch (error) {
       console.error("Error fetching income:", error);
     }
@@ -31,7 +31,7 @@ const IncomeData = ({ children }) => {
         throw new Error("Failed to fetch expenses data.");
       }
       const data = await response.json();
-      setExpenses(data); // Assuming the API returns an array of expenses
+      setExpenses(data);
     } catch (error) {
       console.error("Error fetching expenses:", error);
     }
