@@ -1,17 +1,56 @@
-// src/Components/IncomeData.js
 import React, { useState, useEffect } from "react";
-import { incomeData, expenseData } from "../DataChart";
+import { baseUrl } from "../constants";
 
 const IncomeData = ({ children, initialMonth }) => {
-  const [selectedMonth, setSelectedMonth] = useState(initialMonth || 0); // Startar på nuvarande månad
-  const [income, setIncome] = useState([...incomeData]);
-  const [expenses, setExpenses] = useState([...expenseData]);
+  const [selectedMonth, setSelectedMonth] = useState(initialMonth || 0);
+  const [income, setIncome] = useState([]);
+  const [expenses, setExpenses] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const balance = income[selectedMonth] - expenses[selectedMonth];
+  // Om data saknas, sätt 0 som fallback
+  const balance = (income[selectedMonth] || 0) - (expenses[selectedMonth] || 0);
 
   const handleMonthChange = (e) => {
     setSelectedMonth(parseInt(e.target.value));
   };
+
+  // Funktion för att hämta inkomster från API
+  const fetchIncome = async () => {
+    try {
+      const response = await fetch(`${baseUrl}/api/income`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch income data.");
+      }
+      const data = await response.json();
+      setIncome(data); // Förutsätter att API returnerar en array av inkomster per månad
+    } catch (error) {
+      console.error("Error fetching income:", error);
+    }
+  };
+
+  // Funktion för att hämta utgifter från API
+  const fetchExpenses = async () => {
+    try {
+      const response = await fetch(`${baseUrl}/api/expenses`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch expenses data.");
+      }
+      const data = await response.json();
+      setExpenses(data); // Förutsätter att API returnerar en array av utgifter per månad
+    } catch (error) {
+      console.error("Error fetching expenses:", error);
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      await fetchIncome();
+      await fetchExpenses();
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
 
   const updateIncome = (value) => {
     const newIncome = [...income];
@@ -25,11 +64,15 @@ const IncomeData = ({ children, initialMonth }) => {
     setExpenses(newExpenses);
   };
 
+  if (loading) {
+    return <div>Laddar data...</div>;
+  }
+
   return (
     <div>
       {children({
-        income: income[selectedMonth],
-        expenses: expenses[selectedMonth],
+        income: income[selectedMonth] || 0, // Om data saknas, visa 0
+        expenses: expenses[selectedMonth] || 0, 
         balance,
         selectedMonth,
         handleMonthChange,
@@ -41,3 +84,4 @@ const IncomeData = ({ children, initialMonth }) => {
 };
 
 export default IncomeData;
+
