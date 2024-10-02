@@ -1,57 +1,36 @@
 import React, { useState, useEffect } from "react";
 import { baseUrl } from "../../constants";
+import { incomeData, expenseData } from "../../DataChart"; // Adjust the import path
 
-const IncomeData = ({ children }) => {
-  const [income, setIncome] = useState(NaN); // Total income
-  const [expenses, setExpenses] = useState(NaN); // Total expenses
-  const [loading, setLoading] = useState(true);
+const IncomeData = ({ children, initialMonth }) => {
+  const [selectedMonth, setSelectedMonth] = useState(initialMonth || 0);
+  const [income, setIncome] = useState(incomeData);
+  const [expenses, setExpenses] = useState(expenseData);
+  const [loading, setLoading] = useState(false);
 
-  // Total balance calculation
-  const balance = income - expenses;
+  // Om data saknas, sätt 0 som fallback
+  const balance = (income[selectedMonth] || 0) - (expenses[selectedMonth] || 0);
 
-  // Fetch total income from API
-  const fetchIncome = async () => {
-    try {
-      const response = await fetch(`${baseUrl}/api/income/total`);
-      if (!response.ok) {
-        throw new Error("Failed to fetch income data.");
-      }
-      const data = await response.json();
-      console.log("Fetched Income Data:", data); // Log fetched income data
-      setIncome(data.totalIncome);
-    } catch (error) {
-      console.error("Error fetching income:", error);
-      // Set income to NaN if there's an error
-      setIncome(NaN);
-    }
+  const handleMonthChange = (e) => {
+    setSelectedMonth(parseInt(e.target.value));
   };
 
-  // Fetch total expenses from API
-  const fetchExpenses = async () => {
-    try {
-      const response = await fetch(`${baseUrl}/api/expenses/total`);
-      if (!response.ok) {
-        throw new Error("Failed to fetch expenses data.");
-      }
-      const data = await response.json();
-      console.log("Fetched Expenses Data:", data); // Log fetched expenses data
-      setExpenses(data.totalExpenses); // Assuming API returns { totalExpenses: number }
-    } catch (error) {
-      console.error("Error fetching expenses:", error);
-      // Set expenses to NaN if there's an error
-      setExpenses(NaN);
-    }
-  };
-
+  // Removed fetch functions since we're using static data
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      await fetchIncome();
-      await fetchExpenses();
-      setLoading(false);
-    };
-    fetchData();
-  }, []); // Empty dependency array ensures this runs only once
+    setLoading(false); // No loading state needed as data is static
+  }, []);
+
+  const updateIncome = (value) => {
+    const newIncome = [...income];
+    newIncome[selectedMonth] = value;
+    setIncome(newIncome);
+  };
+
+  const updateExpenses = (value) => {
+    const newExpenses = [...expenses];
+    newExpenses[selectedMonth] = value;
+    setExpenses(newExpenses);
+  };
 
   if (loading) {
     return <div>Laddar data...</div>;
@@ -60,9 +39,13 @@ const IncomeData = ({ children }) => {
   return (
     <div>
       {children({
-        income,
-        expenses,
+        income: income[selectedMonth] || 0, // Om data saknas, visa 0
+        expenses: expenses[selectedMonth] || 0, 
         balance,
+        selectedMonth,
+        handleMonthChange,
+        updateIncome,
+        updateExpenses,
       })}
     </div>
   );
