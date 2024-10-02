@@ -6,6 +6,7 @@ const IncomeComponent = ({ setIncomes }) => {
     const [amount, setAmount] = useState(""); 
     const [date, setDate] = useState(""); 
     const [saldo, setSaldo] = useState(0);
+    const [totalExpenses, setTotalExpenses] = useState(0)
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
@@ -49,17 +50,33 @@ const IncomeComponent = ({ setIncomes }) => {
         }
     };
 
-    useEffect(() => {
-        const fetchSaldo = async () => {
-            const response = await fetch(`${baseUrl}/api/income/total`); 
+    const fetchSaldo = async () => {
+        const response = await fetch(`${baseUrl}/api/income/total`); 
+        if (!response.ok) {
+            const errorMessage = await response.text();
+            throw new Error(errorMessage);
+        }
+        const data = await response.json();
+        setSaldo(data.totalIncome); 
+    };
+    const fetchTotalExpenses = async () => {
+        try {
+            const response = await fetch(`${baseUrl}/api/expenses/total`)
             if (!response.ok) {
-                const errorMessage = await response.text();
-                throw new Error(errorMessage);
+                const errorMessage = await response.text()
+                throw new Error(errorMessage)
             }
-            const data = await response.json();
-            setSaldo(data.totalIncome); 
-        };
+            const data = await response.json()
+            setTotalExpenses(data.totalExpens)
+        } catch (error) {
+            console.error("Error fetching total expenses:", error)
+            alert("Kunde inte hämta totala utgifter: " + error.message)
+        }
+    };
+
+    useEffect(() => {
         fetchSaldo();
+        fetchTotalExpenses();
     }, []);
 
     return (
@@ -70,19 +87,19 @@ const IncomeComponent = ({ setIncomes }) => {
                     type="number"
                     placeholder="Saldo"
                     value={amount}
-                    onChange={(e) => setAmount(e.target.value)} // Update amount state on change
+                    onChange={(e) => setAmount(e.target.value)}
                     required
                 />
                 <input
                     type="date"
                     value={date}
-                    onChange={(e) => setDate(e.target.value)} // Update date state on change
+                    onChange={(e) => setDate(e.target.value)}
                     required
                 />
                 <button type="submit" disabled={loading}>Lägg till inkomst</button>
             </form>
-            {loading && <p>Laddar...</p>} {/* Show loading text if in loading state */}
-            <h3>Saldo: {saldo.toFixed(3)} kr</h3> {/* Display saldo */}
+            {loading && <p>Laddar...</p>}
+            <h3>Saldo: {saldo.toFixed(3) - totalExpenses.toFixed(3)} kr</h3>
         </div>
     );
 };

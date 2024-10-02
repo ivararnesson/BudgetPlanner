@@ -20,7 +20,7 @@ export default function Savings() {
     }, [])
 
     const getData = async () => {
-        const res = await fetch(`${baseUrl}/api/person`)
+        const res = await fetch(`${baseUrl}/api/savings`)
         const data = await res.json()
 
         if (data.length > 0) {
