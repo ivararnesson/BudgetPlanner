@@ -1,4 +1,3 @@
-
 let januariIncome = 31.235;
 let februariIncome = 33.195;
 let marsIncome = 33.753;

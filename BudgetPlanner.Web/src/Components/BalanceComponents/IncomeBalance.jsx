@@ -11,7 +11,6 @@ function IncomeBalance() {
         "Juli", "Augusti", "September", "Oktober", "November", "December"
     ];
 
-    // Hämta den aktuella månaden
     const currentMonth = new Date().getMonth();
 
     return (
