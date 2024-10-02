@@ -2,36 +2,36 @@ import React, { useState, useEffect } from "react";
 import { baseUrl } from "../../constants";
 
 const IncomeData = ({ children }) => {
-  const [income, setIncome] = useState(0); // Total income, not per month
-  const [expenses, setExpenses] = useState([]);
+  const [income, setIncome] = useState(0); // Total income
+  const [expenses, setExpenses] = useState(0); // Total expenses, not an array
   const [loading, setLoading] = useState(true);
 
-  // Total balance
-  const balance = income - expenses.reduce((total, expense) => total + expense, NaN);
+  // Total balance calculation
+  const balance = income - expenses;
 
-  // Funktion för att hämta totala inkomster från API
+  // Fetch total income from API
   const fetchIncome = async () => {
     try {
-      const response = await fetch(`${baseUrl}/api/income/total`); // Adjust the API endpoint to fetch total income
+      const response = await fetch(`${baseUrl}/api/income/total`); // Adjust API endpoint if needed
       if (!response.ok) {
         throw new Error("Failed to fetch income data.");
       }
       const data = await response.json();
-      setIncome(data.totalIncome);
+      setIncome(data.totalIncome); // Assuming API returns { totalIncome: number }
     } catch (error) {
       console.error("Error fetching income:", error);
     }
   };
 
-  // Funktion för att hämta utgifter från API
+  // Fetch total expenses from API
   const fetchExpenses = async () => {
     try {
-      const response = await fetch(`${baseUrl}/api/expenses/total`);
+      const response = await fetch(`${baseUrl}/api/expenses/total`); // Adjust API endpoint if needed
       if (!response.ok) {
         throw new Error("Failed to fetch expenses data.");
       }
       const data = await response.json();
-      setExpenses(data);
+      setExpenses(data.totalExpenses); // Assuming API returns { totalExpenses: number }
     } catch (error) {
       console.error("Error fetching expenses:", error);
     }
@@ -55,7 +55,7 @@ const IncomeData = ({ children }) => {
     <div>
       {children({
         income,
-        expenses: expenses.reduce((total, expense) => total + expense, NaN),
+        expenses,
         balance,
       })}
     </div>
