@@ -26,7 +26,7 @@ const IncomeData = ({ children }) => {
   // Funktion för att hämta utgifter från API
   const fetchExpenses = async () => {
     try {
-      const response = await fetch(`${baseUrl}/api/expenses`);
+      const response = await fetch(`${baseUrl}/api/expenses/total`);
       if (!response.ok) {
         throw new Error("Failed to fetch expenses data.");
       }
