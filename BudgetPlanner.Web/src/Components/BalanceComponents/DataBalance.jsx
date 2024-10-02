@@ -18,7 +18,7 @@ const IncomeData = ({ children }) => {
       }
       const data = await response.json();
       console.log("Fetched Income Data:", data); // Log fetched income data
-      setIncome(data.totalIncome); // Assuming API returns { totalIncome: number }
+      setIncome(data.totalIncome);
     } catch (error) {
       console.error("Error fetching income:", error);
       // Set income to NaN if there's an error

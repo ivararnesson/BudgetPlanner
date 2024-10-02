@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import IncomeCard from "../IncomeComponents/IncomeCard";
+import IncomeCard from "./IncomeCard";
 import IncomeData from "./DataBalance";
 import "../style/BalanceCards.css";
 
