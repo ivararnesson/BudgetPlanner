@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import IncomeCard from "./IncomeCard";
 import IncomeData from "./DataBalance";
-import "../Components/style/BalanceCards.css";
+import "../style/BalanceCards.css";
 
 function IncomeBalance() {
 
@@ -11,7 +11,6 @@ function IncomeBalance() {
         "Juli", "Augusti", "September", "Oktober", "November", "December"
     ];
 
-    // Hämta den aktuella månaden
     const currentMonth = new Date().getMonth();
 
     return (

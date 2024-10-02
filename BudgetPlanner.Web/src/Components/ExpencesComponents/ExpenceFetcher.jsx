@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from "react";
-import "./style/IncomeComponent.css";
-import { baseUrl } from "../constants";
+import "../style/IncomeComponent.css";
+import { baseUrl } from "../../constants";
 
-const IncomeComponent = ({ setIncomes }) => {
-    const [amount, setAmount] = useState(""); 
-    const [date, setDate] = useState(""); 
-    const [saldo, setSaldo] = useState(0);
+const ExpensesComponent = ({ setExpenses }) => {
+    const [amount, setAmount] = useState("")
+    const [date, setDate] = useState("")
     const [totalExpenses, setTotalExpenses] = useState(0)
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const income = { 
-            amount: parseFloat(amount), 
-            createdAt: date
+        const expense = { 
+            amount: parseFloat(amount),
+            createdAt: date 
         };
 
         if (amount <= 0) {
@@ -24,41 +23,35 @@ const IncomeComponent = ({ setIncomes }) => {
 
         try {
             setLoading(true); 
-            const response = await fetch(`${baseUrl}/api/income`, {
+            const response = await fetch(`${baseUrl}/api/expenses`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(income), 
+                body: JSON.stringify(expense), 
             });
 
             if (!response.ok) {
-                const errorMessage = await response.text();
-                throw new Error(errorMessage);
+                const errorMessage = await response.text()
+                throw new Error(errorMessage)
             }
 
-            const data = await response.json();
-            setSaldo(data.totalIncome);
-            setIncomes(prevIncomes => [...prevIncomes, { ...income, id: Date.now(), createdAt: new Date() }]); 
-            setAmount("");
-            setDate("");
+            await fetchTotalExpenses()
+
+            setExpenses(prevExpenses => [
+                ...prevExpenses, 
+                { ...expense, id: Date.now(), createdAt: new Date() } 
+            ]); 
+            setAmount("")
+            setDate("")
         } catch (error) {
-            console.error("Error adding income:", error);
-            alert("Det gick inte att lägga till inkomsten: " + error.message);
+            console.error("Error adding expense:", error);
+            alert("Det gick inte att lägga till utgiften: " + error.message);
         } finally {
-            setLoading(false);
+            setLoading(false)
         }
     };
 
-    const fetchSaldo = async () => {
-        const response = await fetch(`${baseUrl}/api/income/total`); 
-        if (!response.ok) {
-            const errorMessage = await response.text();
-            throw new Error(errorMessage);
-        }
-        const data = await response.json();
-        setSaldo(data.totalIncome); 
-    };
     const fetchTotalExpenses = async () => {
         try {
             const response = await fetch(`${baseUrl}/api/expenses/total`)
@@ -75,13 +68,12 @@ const IncomeComponent = ({ setIncomes }) => {
     };
 
     useEffect(() => {
-        fetchSaldo();
-        fetchTotalExpenses();
+        fetchTotalExpenses()
     }, []);
 
     return (
         <div className="income-component">
-            <h2>Inkomster</h2>
+            <h2>Utgifter</h2>
             <form onSubmit={handleSubmit}>
                 <input
                     type="number"
@@ -96,12 +88,12 @@ const IncomeComponent = ({ setIncomes }) => {
                     onChange={(e) => setDate(e.target.value)}
                     required
                 />
-                <button type="submit" disabled={loading}>Lägg till inkomst</button>
+                <button type="submit" disabled={loading}>Lägg till utgift</button>
             </form>
             {loading && <p>Laddar...</p>}
-            <h3>Saldo: {saldo.toFixed(3) - totalExpenses.toFixed(3)} kr</h3>
+            <h3>Saldo: {totalExpenses.toFixed(3)} kr</h3>
         </div>
     );
 };
 
-export default IncomeComponent;
+export default ExpensesComponent;

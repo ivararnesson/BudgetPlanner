@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import IncomeComponent from './IncomeComponents';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Sidebar from "./Sidebar";
-import "./style/SideNavbar.css"
+import Sidebar from "../SavingsComponents/Sidebar";
+import "../style/SideNavbar.css"
 
 
 

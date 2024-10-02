@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import ExpensesComponent from '../Components/ExpenceFetcher';
+import ExpensesComponent from './ExpenceFetcher';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Sidebar from "./Sidebar";
-import "./style/SideNavbar.css";
+import Sidebar from "../SavingsComponents/Sidebar";
+import "../style/SideNavbar.css";
 
 function ExpensesPage() {
 

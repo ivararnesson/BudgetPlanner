@@ -1,5 +1,5 @@
 import React from "react";
-import "../Components/style/BalanceCards.css";
+import "../style/BalanceCards.css";
 import { FaDollarSign } from "react-icons/fa";
 
 function IncomeCard({ income, expenses, balance }) {
