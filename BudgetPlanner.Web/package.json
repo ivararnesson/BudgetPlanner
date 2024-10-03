@@ -1,17 +1,33 @@
 {
   "name": "budgetplanner-web",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "version": "1.0.0",
+  "description": "Budget Planner",
+  "main": "index.js",
   "scripts": {
+    "start": "node server.js",
     "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@material-tailwind/react": "^2.1.10",
+    "@mui/icons-material": "^6.1.1",
+    "@mui/material": "^6.1.1",
+    "@mui/styled-engine-sc": "^6.1.1",
+    "@mui/x-charts": "^7.18.0",
+    "bootstrap": "^5.3.3",
+    "axios": "^1.7.7",
+    "chart.js": "^4.4.4",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-bootstrap": "^2.10.5",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "^18.3.1",
+    "react-icons": "^5.3.0",
+    "react-router-dom": "^6.26.2",
+    "recharts": "^2.12.7",
+    "rollup": "^4.22.5",
+    "styled-components": "^6.1.13"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",

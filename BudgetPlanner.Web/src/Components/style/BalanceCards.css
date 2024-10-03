@@ -1,0 +1,70 @@
+
+.balance-container {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 3rem;
+  margin-right: 3rem;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+
+.balance-card {
+  width: 30%;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  /*border: solid 1px #aaff64;*/
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.balance-title-container {
+  display: flex;
+  align-items: center;
+}
+
+.balance-icon {
+  margin-right: 10px;
+  font-size: 3rem;
+  color: #000000;
+}
+
+.income-icon {
+  margin-right: 10px;
+  font-size: 3rem;
+  color: #00a400;
+}
+
+.expence-icon {
+  margin-right: 10px;
+  font-size: 3rem;
+  color: #d11a1a;
+}
+
+.balance-title {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.balance-value {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.balance-text-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/*Månad*/
+
+.container-balance{
+    margin-top: 3rem;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+    /*border: solid 1px #aaff64;*/
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -1,6 +1,6 @@
-namespace BudgetPlanner.API
+﻿namespace BudgetPlanner.API.Models
 {
-    public class Income
+    public class Expenses
     {
         public int Id { get; set; }
         public int PersonId { get; set; }
